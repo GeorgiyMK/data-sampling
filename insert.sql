@@ -32,13 +32,18 @@ INSERT INTO SingersAlbums (SingerID, AlbumID) VALUES
 
 -- Вставка данных в таблицу Треков
 INSERT INTO Tracks (Title, Duration, AlbumID) VALUES
-('Come Together', '4:20', 1),
-('Something', '3:03', 1),
-('Like a Virgin', '3:38', 2),
-('Material Girl', '4:00', 2),
-('So What', '9:22', 3),
-('Freddie Freeloader', '9:46', 3),
-('In My Life', '2:26', 1);
+('Come Together', '00:4:20', 1),
+('Something', '00:3:03', 1),
+('Like a Virgin', '00:3:38', 2),
+('Material Girl', '00:4:00', 2),
+('So What', '00:9:22', 3),
+('Freddie Freeloader', '00:9:46', 3),
+('In My Life', '00:2:26', 1),
+('My own', '00:3:51', 1),
+('By myself', '00:1:21', 2),
+('Bemy self', '00:5:11', 3),
+('By myself by', '00:4:25', 1),
+('Premyne', '00:6:39', 2);
 
 -- Вставка данных в таблицу Сборников
 INSERT INTO Collections (Name, ReleaseYear) VALUES

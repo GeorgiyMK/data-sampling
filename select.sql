@@ -5,11 +5,10 @@ LIMIT 1;
 
 
 
-SELECT Title
+SELECT *
 FROM Tracks
-WHERE
-  (CAST(split_part(Duration::text, ':', 1) AS INTEGER) * 60 +
-   CAST(split_part(Duration::text, ':', 2) AS INTEGER)) >= 210;
+WHERE Duration >= '00:03:30';
+
 
 
 
@@ -24,13 +23,23 @@ WHERE ReleaseYear BETWEEN 2018 AND 2020;
 
 SELECT Title
 FROM Tracks
-WHERE LOWER(Title) LIKE '%мой%' OR LOWER(Title) LIKE '%my%';
+WHERE 
+    LOWER(Title) ~* '\mмой\M' OR
+    LOWER(Title) ~* '\mmy\M';
 
 
-SELECT g.Name AS Genre, COUNT(sg.SingerID) AS NumberOfSingers
-FROM Genres g
-LEFT JOIN SingersGenres sg ON g.GenreID = sg.GenreID
-GROUP BY g.Name;
+SELECT DISTINCT c.Name AS Collection
+FROM Collections c
+JOIN CollectionsTracks ct ON c.CollectionID = ct.CollectionID  
+JOIN Tracks t ON ct.TrackID = t.TrackID                        
+JOIN Albums a ON t.AlbumID = a.AlbumID                        
+JOIN SingersAlbums sa ON a.AlbumID = sa.AlbumID               
+JOIN Singers s ON sa.SingerID = s.SingerID                    
+WHERE s.Name ILIKE '%Beatles%';  
+
+
+
+
 
 SELECT COUNT(t.TrackID) AS NumberOfTracks
 FROM Tracks t
@@ -53,10 +62,3 @@ WHERE s.SingerID NOT IN (
     JOIN Albums a ON sa.AlbumID = a.AlbumID
     WHERE a.ReleaseYear = 2020
 );
-
-SELECT DISTINCT c.Name AS Collection
-FROM Collections c
-JOIN Singers s ON c.Name ILIKE '%' || REPLACE(s.Name, 'The ', '') || '%';
-
-
-
